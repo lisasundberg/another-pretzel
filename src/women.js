@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-class Donuts {
+class Women {
 	init() {
 		// Create button
 		const button = document.createElement('button');
@@ -93,4 +93,4 @@ class Donuts {
 	}
 }
 
-export default Donuts;
+export default Women;
