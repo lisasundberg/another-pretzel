@@ -2,6 +2,9 @@ import * as THREE from 'three';
 
 class Donuts {
 	init() {
+		document.querySelector('body').classList.add('body--donuts');
+		document.querySelector('body').classList.remove('body--march8');
+
 		// Create button
 		const button = document.createElement('button');
 		button.innerText = 'Create donut';
@@ -55,7 +58,6 @@ class Donuts {
 	}
 
 	add(color, posX, posY, posZ) {
-		console.log('donut function');
 		var donut = new THREE.TorusGeometry(200, 100, 100, 100);
 		const donutMaterial = new THREE.MeshPhysicalMaterial( {
 				map: null,

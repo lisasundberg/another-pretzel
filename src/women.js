@@ -1,13 +1,9 @@
 import * as THREE from 'three';
 
 class Women {
-	init() {
-		// Create button
-		const button = document.createElement('button');
-		button.innerText = 'Create donut';
-		button.classList.add('button');
-		const main = document.querySelector('.main');
-		main.appendChild(button);
+	init() {
+		document.querySelector('body').classList.add('body--march8');
+		document.querySelector('body').classList.remove('body--donuts');
 
 		// RENDER
 		this.renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('myCanvas'), antialias: true });
@@ -15,14 +11,14 @@ class Women {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-		// CAMERA
-		this.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
+		//CAMERA
+		this.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 10000);
 		this.camera.position.set(0, 0, 0);
 
-		// SCENE
+		//SCENE
 		this.scene = new THREE.Scene();
 
-		// LIGHTS
+		//LIGHTS
 		var light = new THREE.AmbientLight(0xffffff, 0.5);
 		this.scene.add(light);
 
@@ -38,58 +34,49 @@ class Women {
 		light4.position.set(1000, 1000, 100);
 		this.scene.add(light4);
 
-		// Generate donut on click
-		button.addEventListener('click', () => {
-			let color = '#'+Math.floor(Math.random()*16777215).toString(16);
-			let posX = Math.floor((Math.random() * 1999) - 999);
-			let posY = Math.floor((Math.random() * 1999) - 999);
-			let posZ = Math.floor((Math.random() * -2000) - 1000);
-
-			this.add(color, posX, posY, posZ);
-		});
-
-		// Create empty donut-array
-		this.donuts = [];
-
+		let color = '#'+Math.floor(Math.random()*16777215).toString(16);
+		
+		this.add(color);
 		this.render();
 	}
 
-	add(color, posX, posY, posZ) {
-		console.log('donut function');
-		var donut = new THREE.TorusGeometry(200, 100, 100, 100);
-		const donutMaterial = new THREE.MeshPhysicalMaterial( {
-				map: null,
-				color: color,
-				metalness: 0.0,
-				roughness: 0,
-				opacity: 1,
-				transparent: false,
-				envMapIntensity: 5,
-				premultipliedAlpha: true,
-				clearCoat: 1.0,
-				reflectivity: 1
-			} );
+	add(color) {
+		const material = new THREE.MeshPhysicalMaterial( {
+			map: null,
+			color: color,
+			roughness: 0,
+			opacity: 1.0,
+			envMapIntensity: 5,
+			premultipliedAlpha: true,
+			clearCoat: 1.0,
+			reflectivity: 1.0
+		} );
 
-		var donutMesh = new THREE.Mesh(donut, donutMaterial);
-		donutMesh.position.set(posX, posY, posZ);
+		var ring = new THREE.TorusGeometry(200, 100, 100, 100);
 
-		// ADD TO SCENE
-		this.scene.add(donutMesh);
+		this.ringMesh = new THREE.Mesh(ring, material);
+		this.ringMesh.position.set(0, 200, -1000);
 
-		// Add donut to donut-array
-		this.donuts.push(donutMesh);
+		//Cylinders
+		var cylinder = new THREE.CylinderGeometry(100, 100, 420, 100);
+		this.cylinderMesh = new THREE.Mesh(cylinder, material);
+		this.cylinderMesh.position.set(0, -200, -1000);
+
+		var cylinder2 = new THREE.CylinderGeometry(100, 100, 400, 100);
+		this.cylinder2Mesh = new THREE.Mesh(cylinder2, material);
+		this.cylinder2Mesh.rotation.x = Math.PI / 2;
+		this.cylinder2Mesh.rotation.z = Math.PI / 2;
+		this.cylinder2Mesh.position.set(0, -220, -1000);
+
+		this.scene.add(this.cylinderMesh, this.cylinder2Mesh, this.ringMesh);
 	}
 
 	render() {
-		for (var i = 0; i < this.donuts.length; i++) {
-			this.donuts[i].rotation.x += 0.01;
-			this.donuts[i].rotation.y += 0.01;
-		}
+		this.ringMesh.rotation.y += 0.01;
+		this.cylinderMesh.rotation.y += 0.01;
+		this.cylinder2Mesh.rotation.z -= 0.01;
 		this.renderer.render(this.scene, this.camera);
-
-
 		requestAnimationFrame(() => this.render());
-		// setTimeout(() => render(), 4000);
 	}
 }
 

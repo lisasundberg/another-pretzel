@@ -10,7 +10,7 @@ body { margin: 0; }
 
 .button {
 	display: none;
-	body:hover & {
+	.body--donuts:hover & {
 		background: pink;
 		border: none;
 		border-radius: 4px;

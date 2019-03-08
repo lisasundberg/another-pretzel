@@ -3,10 +3,9 @@ import Donuts from './donuts';
 import Women from './women';
 import './scss/main.scss';
 
-
 const nav = {
 	donut: document.querySelector('.donuts'),
-	women: document.querySelector('.women')
+	women: document.querySelector('.march8')
 }
 
 nav.donut.addEventListener('click', function() {
