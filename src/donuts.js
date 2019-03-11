@@ -3,14 +3,17 @@ import * as THREE from 'three';
 class Donuts {
 	init() {
 		document.querySelector('body').classList.add('body--donuts');
-		document.querySelector('body').classList.remove('body--march8');
 
 		// Create button
-		const button = document.createElement('button');
-		button.innerText = 'Create donut';
-		button.classList.add('button');
+		this.button = document.createElement('button');
+		this.button.innerText = 'Create donut';
+		this.button.classList.add('button');
 		const main = document.querySelector('.main');
-		main.appendChild(button);
+		main.appendChild(this.button);
+
+		// Add event listener
+		this.donutHandler = this.generateDonut.bind(this);
+		this.button.addEventListener('click', this.donutHandler);
 
 		// RENDER
 		this.renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('myCanvas'), antialias: true });
@@ -41,20 +44,20 @@ class Donuts {
 		light4.position.set(1000, 1000, 100);
 		this.scene.add(light4);
 
-		// Generate donut on click
-		button.addEventListener('click', () => {
-			let color = '#'+Math.floor(Math.random()*16777215).toString(16);
-			let posX = Math.floor((Math.random() * 1999) - 999);
-			let posY = Math.floor((Math.random() * 1999) - 999);
-			let posZ = Math.floor((Math.random() * -2000) - 1000);
-
-			this.add(color, posX, posY, posZ);
-		});
-
 		// Create empty donut-array
 		this.donuts = [];
 
 		this.render();
+	}
+
+	// Generate donut on click
+	generateDonut() {
+		let color = '#'+Math.floor(Math.random()*16777215).toString(16);
+		let posX = Math.floor((Math.random() * 1999) - 999);
+		let posY = Math.floor((Math.random() * 1999) - 999);
+		let posZ = Math.floor((Math.random() * -2000) - 1000);
+
+		this.add(color, posX, posY, posZ);
 	}
 
 	add(color, posX, posY, posZ) {
@@ -92,6 +95,11 @@ class Donuts {
 
 		requestAnimationFrame(() => this.render());
 		// setTimeout(() => render(), 4000);
+	}
+
+	destroy() {
+		this.button.removeEventListener('click', this.donutHandler);
+		document.querySelector('body').classList.remove('body--donuts');
 	}
 }
 

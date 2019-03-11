@@ -3,7 +3,6 @@ import * as THREE from 'three';
 class March8 {
 	init() {
 		document.querySelector('body').classList.add('body--march8');
-		document.querySelector('body').classList.remove('body--donuts');
 
 		// RENDER
 		this.renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('myCanvas'), antialias: true });
@@ -77,6 +76,10 @@ class March8 {
 		this.cylinder2Mesh.rotation.z -= 0.01;
 		this.renderer.render(this.scene, this.camera);
 		requestAnimationFrame(() => this.render());
+	}
+
+	destroy() {
+		document.querySelector('body').classList.remove('body--march8');
 	}
 }
 
