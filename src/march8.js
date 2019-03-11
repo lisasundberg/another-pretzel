@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-class Women {
+class March8 {
 	init() {
 		document.querySelector('body').classList.add('body--march8');
 		document.querySelector('body').classList.remove('body--donuts');
@@ -35,7 +35,7 @@ class Women {
 		this.scene.add(light4);
 
 		let color = '#'+Math.floor(Math.random()*16777215).toString(16);
-		
+
 		this.add(color);
 		this.render();
 	}
@@ -80,4 +80,4 @@ class Women {
 	}
 }
 
-export default Women;
+export default March8;
