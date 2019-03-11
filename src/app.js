@@ -4,27 +4,33 @@ import March8 from './march8';
 import Popcorn from './popcorn';
 import './scss/main.scss';
 
+const experiments = {
+	donuts: Donuts,
+	march8: March8,
+	popcorn: Popcorn
+}
+
 // Get the nav items
-// const nav = document.querySelectorAll('.nav__item');
-//
-// // Add event listeners
-// nav.forEach((navItem) => {
-// 	navItem.addEventListener('click', function() {
-// 		navigate(event.target.id);
-// 	});
-// });
-//
-// function navigate(target) {
-// 	const instanceName = capitalize(target);
-// 	console.log(instanceName);
-//
-// 	const instance = new instanceName;
-// 	instance.init();
-// }
-//
-// function capitalize(string) {
-//     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-// }
+const nav = document.querySelectorAll('.nav__item');
+
+// Add event listeners
+nav.forEach((navItem) => {
+	navItem.addEventListener('click', function() {
+		navigate(event.target.id);
+	});
+});
+
+function navigate(target) {
+	const instanceName = capitalize(target);
+	console.log(instanceName);
+
+	const instance = new experiments[target];
+	instance.init();
+}
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 
 // Get the nav items
 // const nav = {

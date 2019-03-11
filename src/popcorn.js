@@ -6,13 +6,13 @@ class Popcorn {
 
 		// RENDER
 		this.renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('myCanvas'), antialias: true });
-		this.renderer.setClearColor('#'+Math.floor(Math.random()*16777215).toString(16));
+		this.renderer.setClearColor(0x222222);
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 
 		//CAMERA
 		this.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
-		this.camera.position.set(0, 0, 0);
+		this.camera.position.set(0, 0, 1000);
 
 		//SCENE
 		this.scene = new THREE.Scene();
@@ -29,34 +29,47 @@ class Popcorn {
 		light3.position.set(-250, -150, 50);
 		this.scene.add(light3);
 
-		let color = '#'+Math.floor(Math.random()*16777215).toString(16);
-
 		this.add();
 		this.render();
 	}
 
 	add() {
-		const material = new THREE.MeshPhysicalMaterial({
-			map: null,
-			color: 0xffffff,
-			roughness: 0,
-			premultipliedAlpha: true,
-			clearCoat: 1.0,
-			reflectivity: 1.0,
-			wireframe: true
-		});
+		const geometry = new THREE.SphereGeometry( 20, 20, 20 );
+		const geometry2 = new THREE.SphereGeometry( 50, 50, 50 );
 
-		var sphere = new THREE.SphereGeometry(70, 10, 10);
+		const material = new THREE.MeshPhongMaterial( {
+			color: 0xffffff
+		} );
 
-		this.ringMesh = new THREE.Mesh(sphere, material);
-		this.ringMesh.position.set(0, 0, -1000);
+		const sphere1 = new THREE.Mesh( geometry, material );
+		sphere1.position.set( 100, 100, 0 );
 
-		//Cylinders
-		this.scene.add(this.ringMesh);
+		const sphere2 = new THREE.Mesh( geometry, material );
+		sphere2.position.set( 100, 40, 50 );
+
+		const sphere3 = new THREE.Mesh( geometry2, material );
+		sphere3.position.set( 0, 0, 0 );
+
+		const sphere4 = new THREE.Mesh( geometry, material );
+		sphere4.position.set( 0, -0, -100 );
+
+		const sphere5 = new THREE.Mesh( geometry, material );
+		sphere5.position.set( -40, 40, 40 );
+
+		//create a group and add the two cubes
+		//These cubes can now be rotated / scaled etc as a group
+		this.group = new THREE.Group();
+		this.group.add( sphere1 );
+		this.group.add( sphere2 );
+		this.group.add( sphere3 );
+		this.group.add( sphere4 );
+		this.group.add( sphere5 );
+
+		this.scene.add( this.group );
 	}
 
 	render() {
-		this.ringMesh.rotation.y += 0.01;
+		this.group.rotation.y += 0.02;
 		this.renderer.render(this.scene, this.camera);
 		requestAnimationFrame(() => this.render());
 	}
