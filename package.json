@@ -1,8 +1,8 @@
 {
-  "name": "webpack-boilerplate",
+  "name": "Pretzel",
   "version": "1.1.0",
   "description": "Webpack 3 boilerplate with babel and sass",
-  "author": "Jesper Orb <jesperorb@gmail.com> (https://jesperorb.com/)",
+  "author": "Lisa Sundberg",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development",
