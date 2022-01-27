@@ -32,6 +32,6 @@
   },
   "dependencies": {
     "babel-polyfill": "6.26.0",
-    "three": "^0.102.1"
+    "three": "^0.137.0"
   }
 }
